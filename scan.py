@@ -1,5 +1,3 @@
-from pprint import pprint
-
 import requests
 
 import config
@@ -21,6 +19,9 @@ def scan(url, options=[]):
         if config.WEB_CACHE_DECEPTION in options:
             if WebCacheDeception.check(url):
                 print(url + ' is vulnerable to ' + config.WEB_CACHE_DECEPTION)
+                if WebCacheDeception.check(url, xss=True):
+                    print(url + ' is also vulnerable to ' + config.XSS + ' via ' + config.WEB_CACHE_DECEPTION)
+
         if config.CRLF in options:
             if crlf.check(url):
                 print(url + ' is vulnerable to ' + config.CRLF)

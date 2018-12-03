@@ -2,20 +2,21 @@ import config
 import scan
 
 # need crawl or just test some url's
-no_need_to_crawl = True
+no_need_to_crawl = False
 
-start_url = 'http://site.com'
+start_url = ''
 
 # fill list of sites instead of start_url if you want a list
 urlList = [
-
+    'https://site1.com',
+    'site2.com.cy'
 ]
 
 # uncomment what you need
 scan_options = [
     config.WEB_CACHE_DECEPTION,
     config.CRLF,
-    #config.REVERSE_TABNABBING
+    config.REVERSE_TABNABBING
 ]
 
 
