@@ -12,6 +12,8 @@ def scan(url, options=[]):
     :param options:
     :return:
     """
+    findings = []
+
     if len(options) == 0:
         print('Check your scan options')
         return False
@@ -19,16 +21,19 @@ def scan(url, options=[]):
         if config.WEB_CACHE_DECEPTION in options:
             if WebCacheDeception.check(url):
                 print(url + ' is vulnerable to ' + config.WEB_CACHE_DECEPTION)
+                findings.append(config.WEB_CACHE_DECEPTION)
                 if WebCacheDeception.check(url, xss=True):
                     print(url + ' is also vulnerable to ' + config.XSS + ' via ' + config.WEB_CACHE_DECEPTION)
-
+                    findings.append(config.XSS + '_' + config.WEB_CACHE_DECEPTION)
         if config.CRLF in options:
             if crlf.check(url):
                 print(url + ' is vulnerable to ' + config.CRLF)
+                findings.append(config.CRLF)
         if config.REVERSE_TABNABBING in options:
             if ReverseTabnabbing.check(url):
                 print(url + ' is vulnerable to ' + config.REVERSE_TABNABBING)
-    return True
+                findings.append(config.REVERSE_TABNABBING)
+    return findings
 
 
 def crawl_and_scan(start_url, options=[]):
@@ -38,13 +43,14 @@ def crawl_and_scan(start_url, options=[]):
     :param options:
     :return:
     """
+    vulns = {}
     start_url = url_prepare(start_url)
     sitemap = crawler.spider(start_url)
     if len(sitemap) > 0:
         print(str(len(sitemap)) + ' urls detected')
         for url in sitemap:
-            scan(url, options)
-        return True
+            vulns[url] = scan(url, options)
+        return vulns
     return False
 
 
