@@ -1,4 +1,7 @@
+from pprint import pprint
+
 import requests
+
 import config
 
 payload = '_blank'
@@ -20,6 +23,6 @@ def check(url):
                 if response.text.find(fix_word) > -1:
                     return False
             return True
-    except:
-        pass
+    except Exception as ex:
+        pprint(ex)
     return False

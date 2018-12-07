@@ -1,3 +1,5 @@
+from pprint import pprint
+
 import requests
 
 payload = 'kek.kek'
@@ -16,6 +18,6 @@ def check(url, xss=False):
         if xss:
             return True if requests.get(url, headers={'X-Forwarded-Host': xss_payload}).text.find(
                 xss_payload) > -1 else False
-    except:
-        pass
+    except Exception as ex:
+        pprint(ex)
     return False

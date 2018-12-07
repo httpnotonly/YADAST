@@ -1,5 +1,4 @@
 from html.parser import HTMLParser
-from urllib.request import urlopen
 from urllib import parse
 
 import requests

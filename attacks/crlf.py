@@ -1,7 +1,10 @@
+from pprint import pprint
+
 import requests
 
 header = 'CustomHeader'
 fullheader = 'CustomHeader: Value'
+
 
 def build_payoad():
     """
@@ -30,5 +33,5 @@ def check(url):
             if header in requests.get(url, cookies={'kek': payload}).headers.keys():
                 return True
     except Exception as ex:
-        pass
+        pprint(ex)
     return False

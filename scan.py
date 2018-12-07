@@ -1,3 +1,5 @@
+from pprint import pprint
+
 import requests
 
 import config
@@ -65,7 +67,6 @@ def url_prepare(url):
     try:
         if requests.get('https://' + url):
             return 'https://' + url
-    except:
-        pass
-        # no https
+    except Exception as ex:
+        pprint(ex)
     return 'http://' + url
