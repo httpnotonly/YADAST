@@ -10,7 +10,8 @@ message = {
     'data': {
         'target': target,
         'need_crawl': need_crawl,
-        'wcd': True
+        'wcd': True,
+        'trace': True
     }
 }
 

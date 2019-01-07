@@ -47,6 +47,9 @@ def new_task(message):
         if 'crlf' in client_request:
             if client_request['crlf']:
                 what_to_scan.append(config.CRLF)
+        if 'trace' in client_request:
+            if client_request['trace']:
+                what_to_scan.append(config.TRACE)
 
         out = do_magic(target, targets, need_crawl, what_to_scan)
         if isinstance(out, dict):

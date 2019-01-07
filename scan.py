@@ -4,7 +4,7 @@ import requests
 
 import config
 import crawler
-from attacks import WebCacheDeception, crlf, ReverseTabnabbing
+from attacks import WebCacheDeception, crlf, ReverseTabnabbing, trace
 
 
 def scan(url, options=[]):
@@ -31,10 +31,15 @@ def scan(url, options=[]):
             if crlf.check(url):
                 print(url + ' is vulnerable to ' + config.CRLF)
                 findings.append(config.CRLF)
+        if config.TRACE in options:
+            if trace.check(url):
+                print(url + ' is vulnerable to ' + config.TRACE)
+                findings.append(config.TRACE)
         if config.REVERSE_TABNABBING in options:
             if ReverseTabnabbing.check(url):
                 print(url + ' is vulnerable to ' + config.REVERSE_TABNABBING)
                 findings.append(config.REVERSE_TABNABBING)
+
     return findings
 
 
