@@ -11,6 +11,7 @@ def check(url):
     :return:
     """
     try:
+        urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
         http = urllib3.PoolManager()
         return True if http.request('TRACE', url).status != 405 else False
     except Exception as ex:

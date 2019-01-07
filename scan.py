@@ -15,7 +15,7 @@ def scan(url, options=[]):
     :return:
     """
     findings = []
-
+    url = url_prepare(url)
     if len(options) == 0:
         print('Check your scan options')
         return False

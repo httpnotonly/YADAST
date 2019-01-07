@@ -2,7 +2,7 @@ from pprint import pprint
 
 from run import new_task
 
-target = 'site.com'
+target = 'exness.com'
 need_crawl = True
 
 

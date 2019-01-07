@@ -27,17 +27,13 @@ def new_task(message):
     out = []
     try:
         client_request = message['data']
-        target = ''
-        targets = []
-        need_crawl = False
         what_to_scan = []
 
-        if 'target' in client_request:
-            target = client_request['target']
-        if 'targets' in client_request:
-            targets = client_request['targets']
-        if 'need_crawl' in client_request:
-            need_crawl = bool(client_request['need_crawl'])
+        target = client_request['target'] if 'target' in client_request else ''
+        targets = client_request['targets'] if 'targets' in client_request else []
+        need_crawl = bool(client_request['need_crawl']) if 'need_crawl' in client_request else False
+
+
         if 'wcd' in client_request:
             if client_request['wcd']:
                 what_to_scan.append(config.WEB_CACHE_DECEPTION)
