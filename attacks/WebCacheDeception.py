@@ -14,9 +14,15 @@ def check(url, xss=False):
     """
     try:
         if not xss:
-            return True if requests.get(url, headers={'X-Forwarded-Host': payload}).text.find(payload) > -1 else False
+            return True if requests.get(url, headers={
+                'X-Forwarded-Host': payload,
+                'X-Forwarded-For': payload,
+            }).text.find(payload) > -1 else False
         if xss:
-            return True if requests.get(url, headers={'X-Forwarded-Host': xss_payload}).text.find(
+            return True if requests.get(url, headers={
+                'X-Forwarded-Host': xss_payload,
+                'X-Forwarded-For': xss_payload,
+            }).text.find(
                 xss_payload) > -1 else False
     except Exception as ex:
         pprint(ex)

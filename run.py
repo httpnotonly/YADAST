@@ -24,6 +24,7 @@ def new_task(message):
     :param message:
     :return:
     """
+    out = []
     try:
         client_request = message['data']
         target = ''
@@ -64,6 +65,7 @@ def new_task(message):
                 emit('task', str(out))
     except Exception as ex:
         pprint(ex)
+    return out
 
 
 if __name__ == '__main__':
