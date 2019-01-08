@@ -9,7 +9,7 @@ def detect_waf(text):
     :param text:
     :return: True or False
     """
-    waf_words = ['incapsula', 'cloudflare']
+    waf_words = ['Incapsula', 'cloudflare']
     return True if any(waf in text for waf in waf_words) else False
 
 
