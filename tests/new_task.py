@@ -1,10 +1,11 @@
 from pprint import pprint
 
+import requests
+
 from run import new_task
 
-target = 'exness.com'
+target = 'site.com'
 need_crawl = True
-
 
 message = {
     'data': {
