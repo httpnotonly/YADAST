@@ -1,16 +1,15 @@
 from pprint import pprint
-
-import requests
-
 from run import new_task
 
-target = 'site.com'
+target = 'custody.coinbase.com'
 need_crawl = True
+same_domain = True
 
 message = {
     'data': {
         'target': target,
         'need_crawl': need_crawl,
+        'same_domain': same_domain,
         'wcd': True,
         'trace': True
     }

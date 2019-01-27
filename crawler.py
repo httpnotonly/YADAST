@@ -6,6 +6,8 @@ import requests
 
 class LinkParser(HTMLParser):
 
+    same_domain = False
+
     def handle_starttag(self, tag, attrs):
         """
         Need for HTMLParser params
@@ -16,12 +18,32 @@ class LinkParser(HTMLParser):
         if tag == 'a' or tag == 'link':
             for (key, value) in attrs:
                 if key == 'href':
-                    self.links = self.links + [parse.urljoin(self.baseUrl, value)]
+                    if self.same_domain:
+                        # check that value is another domain
+                        if 'http://' in value or 'https://' in value:
+                            # check domain. same or another
+                            if str(self.baseUrl).replace('http://', '').replace('https://', '') in value:
+                                self.links = self.links + [parse.urljoin(self.baseUrl, value)]
+                        # check that value do not contains any scheme
+                        if not '://' in value:
+                            self.links = self.links + [parse.urljoin(self.baseUrl, value)]
+                    if not self.same_domain:
+                        self.links = self.links + [parse.urljoin(self.baseUrl, value)]
 
         if tag == 'img' or tag == 'script':
             for (key, value) in attrs:
                 if key == 'src':
-                    self.links = self.links + [parse.urljoin(self.baseUrl, value)]
+                    if self.same_domain:
+                        # check that value is another domain
+                        if 'http://' in value or 'https://' in value:
+                            # check domain. same or another
+                            if str(self.baseUrl).replace('http://', '').replace('https://', '') in value:
+                                self.links = self.links + [parse.urljoin(self.baseUrl, value)]
+                        # check that value do not contains any scheme
+                        if not '://' in value:
+                            self.links = self.links + [parse.urljoin(self.baseUrl, value)]
+                    if not self.same_domain:
+                        self.links = self.links + [parse.urljoin(self.baseUrl, value)]
 
     def getLinks(self, url):
         """
@@ -35,13 +57,14 @@ class LinkParser(HTMLParser):
         return HTMLParser.feed(self, requests.get(url, timeout=4, verify=False).text), self.links
 
 
-def spider(url, maxPages=20):
+def spider(url, maxPages=20, same_domain=True):
     """
     Do all magic here
     :param url:
     :param maxPages:
     :return:
     """
+    LinkParser.same_domain = same_domain
     pagesToVisit = [url]
     numberVisited = 0
     links = []

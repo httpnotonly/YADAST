@@ -32,6 +32,7 @@ def new_task(message):
         target = client_request['target'] if 'target' in client_request else ''
         targets = client_request['targets'] if 'targets' in client_request else []
         need_crawl = bool(client_request['need_crawl']) if 'need_crawl' in client_request else False
+        same_domain = bool(client_request['same_domain']) if 'same_domain' in client_request else True
 
 
         if 'wcd' in client_request:
@@ -47,7 +48,7 @@ def new_task(message):
             if client_request['trace']:
                 what_to_scan.append(config.TRACE)
 
-        out = do_magic(target, targets, need_crawl, what_to_scan)
+        out = do_magic(target, targets, need_crawl, same_domain,  what_to_scan)
         if isinstance(out, dict):
             if len(out.keys()) == 0:
                 emit('task', 'nothing found')

@@ -43,19 +43,22 @@ def scan(url, options=[]):
     return findings
 
 
-def crawl_and_scan(start_url, options=[]):
+def crawl_and_scan(start_url, options=[], same_domain=True):
     """
-    To making magic without brain job
+    Crawl first and then scan
     :param start_url:
     :param options:
+    :param same_domain:
     :return:
     """
     vulns = {}
     start_url = url_prepare(start_url)
-    sitemap = crawler.spider(start_url)
+    sitemap = crawler.spider(start_url, same_domain=same_domain)
     if len(sitemap) > 0:
         print(str(len(sitemap)) + ' urls detected')
         for url in sitemap:
+            # progress logging
+            print(str(list(sitemap).index(url)) + '/' + str(len(sitemap)))
             vulns[url] = scan(url, options)
         return vulns
     return False
