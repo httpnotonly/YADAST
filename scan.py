@@ -58,7 +58,7 @@ def crawl_and_scan(start_url, options=[], same_domain=True):
         print(str(len(sitemap)) + ' urls detected')
         for url in sitemap:
             # progress logging
-            print(str(list(sitemap).index(url)) + '/' + str(len(sitemap)))
+            print(str(list(sitemap).index(url)) + '/' + str(len(sitemap)) + ' ' + url)
             vulns[url] = scan(url, options)
         return vulns
     return False

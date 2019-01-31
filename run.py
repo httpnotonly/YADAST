@@ -1,5 +1,4 @@
 from pprint import pprint
-
 from flask import Flask
 from flask_socketio import SocketIO, emit
 
@@ -34,7 +33,6 @@ def new_task(message):
         need_crawl = bool(client_request['need_crawl']) if 'need_crawl' in client_request else False
         same_domain = bool(client_request['same_domain']) if 'same_domain' in client_request else True
 
-
         if 'wcd' in client_request:
             if client_request['wcd']:
                 what_to_scan.append(config.WEB_CACHE_DECEPTION)
@@ -57,6 +55,7 @@ def new_task(message):
                 for key in out:
                     if len(out[key]) > 0:
                         emit('task', key + ' - ' + str(out[key]))
+                emit('task', 'nothing found')
         if isinstance(out, list):
             if len(out) == 0:
                 emit('task', 'nothing found')

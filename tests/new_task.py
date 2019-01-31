@@ -1,9 +1,9 @@
 from pprint import pprint
 from run import new_task
 
-target = 'custody.coinbase.com'
+target = 'site.com'
 need_crawl = True
-same_domain = True
+same_domain = False
 
 message = {
     'data': {
@@ -11,7 +11,9 @@ message = {
         'need_crawl': need_crawl,
         'same_domain': same_domain,
         'wcd': True,
-        'trace': True
+        'trace': False,
+        'crlf': False,
+        'reverse_tabnabbing': False
     }
 }
 
