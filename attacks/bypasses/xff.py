@@ -28,6 +28,6 @@ def xff(old_response, method='GET'):
         cookies = old_cookies
     )
     if new_response.status_code != old_response.status_code or len(new_response.text) != len(old_response.text):
-        pprint('XFF bypass works')
+        pprint('XFF bypass works with this WAF')
         return new_response
     return False

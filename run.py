@@ -42,6 +42,9 @@ def new_task(message):
         if 'crlf' in client_request:
             if client_request['crlf']:
                 what_to_scan.append(config.CRLF)
+        if 'xss' in client_request:
+            if client_request['xss']:
+                what_to_scan.append(config.XSS)
         if 'trace' in client_request:
             if client_request['trace']:
                 what_to_scan.append(config.TRACE)

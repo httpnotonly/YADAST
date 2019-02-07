@@ -7,6 +7,7 @@ import requests
 class LinkParser(HTMLParser):
 
     same_domain = False
+    blocked_list = ['.png', '.jpg', '.svg', '.css']
 
     def handle_starttag(self, tag, attrs):
         """
@@ -17,7 +18,7 @@ class LinkParser(HTMLParser):
         """
         if tag == 'a' or tag == 'link':
             for (key, value) in attrs:
-                if key == 'href':
+                if key == 'href' and not any(ext in value for ext in self.blocked_list):
                     if self.same_domain:
                         # check that value is another domain
                         if 'http://' in value or 'https://' in value:
@@ -32,7 +33,7 @@ class LinkParser(HTMLParser):
 
         if tag == 'img' or tag == 'script':
             for (key, value) in attrs:
-                if key == 'src':
+                if key == 'src' and not any(ext in value for ext in self.blocked_list):
                     if self.same_domain:
                         # check that value is another domain
                         if 'http://' in value or 'https://' in value:

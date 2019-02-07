@@ -6,7 +6,7 @@ payload = 'kek.kek'
 xss_payload = 'kek.kek"onload="alert();'
 
 
-def check(url, xss=False):
+def check(url, xss=True):
     """
     Payload found in response
     :param url:
